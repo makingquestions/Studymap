@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducción a CSS - Temario PDF Estricto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a href="index2.html" style="background: yellow; color: black; padding: 10px; font-weight: bold; display: inline-block;">👉 Probar Flexbox</a>
+    <div class="vscode-app">
+        
+        <!-- PESTAÑAS SUPERIORES -->
+        <div class="editor-tabs">
+            <div class="tab active"><span class="icon-html">&lt;/&gt;</span> index.html</div>
+            <div class="tab"><span class="icon-css">#</span> styles.css</div>
+            <div class="tab-info">VS Code Workspace</div>
+        </div>
+
+        <!-- ESTRUCTURA 2 COLUMNAS FIJAS -->
+        <div class="editor-main">
+            
+            <!-- COLUMNA IZQUIERDA: TEMARIO EXACTO DEL PDF -->
+            <aside class="left-sidebar">
+                <div class="sidebar-title">PESTAÑAS DEL DOCUMENTO</div>
+
+                <nav id="indice" class="topic-list">
+                    <a href="#intro" class="topic-item active"><span class="hash">#</span> Introducción a CSS</a>
+                    <a href="#beneficios" class="topic-item sub"><span class="hash">#</span> Beneficios de CSS</a>
+                    <a href="#sin-vs-con" class="topic-item sub"><span class="hash">#</span> Sin CSS vs Con CSS</a>
+                    <a href="#cascada" class="topic-item"><span class="hash">#</span> ¿Cómo funciona la cascada?</a>
+                    <a href="#estilos" class="topic-item"><span class="hash">#</span> Estilos de CSS</a>
+                    <a href="#link" class="topic-item sub"><span class="hash">#</span> Etiqueta &lt;link&gt;</a>
+                    <a href="#css-basica" class="topic-item"><span class="hash">#</span> CSS básica</a>
+                    <a href="#css-elementos" class="topic-item sub"><span class="hash">#</span> CSS por elementos</a>
+                    <a href="#css-clases" class="topic-item sub"><span class="hash">#</span> CSS por clases</a>
+                    <a href="#css-id" class="topic-item sub"><span class="hash">#</span> CSS por ID</a>
+                    <a href="#estados-enlace" class="topic-item"><span class="hash">#</span> Por estados de enlace</a>
+                    <a href="#buenas-practicas" class="topic-item"><span class="hash">#</span> Buenas prácticas</a>
+                    <a href="#box-model" class="topic-item"><span class="hash">#</span> Box model</a>
+                    <a href="#box-sizing" class="topic-item sub"><span class="hash">#</span> Box Sizing</a>
+                    <a href="#display" class="topic-item"><span class="hash">#</span> Display Line/Block</a>
+                    <a href="#overflow" class="topic-item sub"><span class="hash">#</span> Overflow</a>
+                </nav>
+            </aside>
+
+            <!-- COLUMNA DERECHA: CONTENIDO 100% FIEL AL PDF -->
+            <main class="right-content">
+
+                <!-- 1. INTRODUCCIÓN -->
+                <article id="intro" class="card">
+                    <h2>Introducción a CSS</h2>
+                    <p class="sub"><span class="cm">// Cascading Style Sheets (Hojas de Estilo en Cascada)</span></p>
+                </article>
+
+                <!-- 2. BENEFICIOS DE CSS -->
+                <article id="beneficios" class="card">
+                    <h2>Beneficios de CSS</h2>
+                    <p>Tipografía, espaciado, grids, bordes, <strong>responsividad</strong>.</p>
+                </article>
+
+                <!-- 3. SIN CSS VS CON CSS -->
+                <article id="sin-vs-con" class="card">
+                    <h2>Sin CSS vs Con CSS</h2>
+                    <div class="flex-demo">
+                        <div class="demo-sin">
+                            <h4>Bienvenido a mi sitio</h4>
+                            <p>Esta es una página simple sin estilos.</p>
+                            <button>Haz clic aquí</button>
+                        </div>
+                        <div class="demo-con">
+                            <h4>Bienvenido a mi sitio</h4>
+                            <p>Esta es una página simple con estilos.</p>
+                            <button class="btn-con">Haz clic aquí</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 4. CASCADA -->
+                <article id="cascada" class="card">
+                    <h2>¿Cómo funciona la aplicación de estilos en cascada?</h2>
+                    
+                    <div class="code-box">
+                        <pre><code><span class="cm">/* Regla 1: todos los párrafos azules */</span>
+<span class="tg">p</span> { <span class="pr">color</span>: <span class="vl">blue</span>; }
+
+<span class="cm">/* Regla 2: párrafos con clase "destacado" rojos */</span>
+<span class="cl">.destacado</span> { <span class="pr">color</span>: <span class="vl">red</span>; }
+
+<span class="cm">/* Regla 3: el párrafo con id "principal" verde */</span>
+<span class="id">#principal</span> { <span class="pr">color</span>: <span class="vl">green</span>; }</code></pre>
+                    </div>
+
+                    <ul class="bullets">
+                        <li>IDs tienen más prioridad que clases</li>
+                        <li>Clases tienen más prioridad que elementos</li>
+                        <li>Estilos en línea tienen más prioridad que todo</li>
+                        <li>Si hay empate, la regla que aparece más abajo en el código gana.</li>
+                    </ul>
+                </article>
+
+                <!-- 5. ESTILOS DE CSS -->
+                <article id="estilos" class="card">
+                    <h2>Estilos de CSS</h2>
+                    <p><strong>1. Estilo en línea:</strong> <code>&lt;p style="color: blue; font-size: 18px;"&gt;</code></p>
+                    <p><strong>2. Estilo interno:</strong> Bloque <code>&lt;style&gt;</code> dentro de <code>&lt;head&gt;</code></p>
+                    <p><strong>3. Estilos externos:</strong> Archivo separado <code>styles.css</code> vinculados mediante <code>&lt;link&gt;</code></p>
+                    
+                    <div id="link" class="sub-section">
+                        <h3>Etiqueta &lt;link&gt;</h3>
+                        <p>Se usa para conectar el CSS externo desde el <code>&lt;head&gt;</code> de html:</p>
+                        <code class="inline-code">&lt;link rel="stylesheet" href="styles.css"&gt;</code>
+                        <ul class="bullets">
+                            <li><code>&lt;link&gt;</code>: Etiqueta auto-cerrante que vincula recursos ext</li>
+                            <li><code>rel="stylesheet"</code>: Especifica que es una hoja de estilo</li>
+                            <li><code>href="styles.css"</code>: Ruta al archivo CSS (misma carpeta, subcarpeta o URL)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- 6. CSS BÁSICA Y SELECTORES -->
+                <article id="css-basica" class="card">
+                    <h2>CSS básica</h2>
+                    <div class="code-box">
+                        <pre><code><span class="tg">selector</span> {
+    <span class="pr">propiedad</span>: <span class="vl">valor</span>;
+    <span class="pr">otra-propiedad</span>: <span class="vl">otro-valor</span>;
+}</code></pre>
+                    </div>
+
+                    <div id="css-elementos" class="sub-section">
+                        <h3>CSS por elementos</h3>
+                        <p>Afecta a etiquetas directas: <code>p { color: blue; }</code>, <code>h1 { font-size: 32px; }</code>, <code>a { text-decoration: none; }</code></p>
+                    </div>
+
+                    <div id="css-clases" class="sub-section">
+                        <h3>CSS por clases</h3>
+                        <p class="txt-yellow">.destacado { background-color: yellow; }</p>
+                        <p class="txt-red">.importante { color: red; }</p>
+                    </div>
+
+                    <div id="css-id" class="sub-section">
+                        <h3>CSS por ID</h3>
+                        <p class="txt-navy">#header { background-color: navy; color: white; padding: 20px; }</p>
+                    </div>
+                </article>
+
+                <!-- 7. ESTADOS DE ENLACE -->
+                <article id="estados-enlace" class="card">
+                    <h2>Por estados de enlace</h2>
+                    <ul class="bullets">
+                        <li><code>a:link</code> - Enlace no visitado</li>
+                        <li><code>a:visited</code> - Enlace visitado</li>
+                        <li><code>a:hover</code> - Enlace con el mouse encima</li>
+                        <li><code>a:active</code> - Enlace mientras se hace click</li>
+                    </ul>
+                    <div class="demo-link-container">
+                        <a href="#estados-enlace" class="demo-link">Pasa el mouse sobre este enlace (:hover)</a>
+                    </div>
+                </article>
+
+                <!-- 8. BUENAS PRÁCTICAS (CONTENIDO COMPLETO DEL PDF) -->
+                <article id="buenas-practicas" class="card">
+                    <h2>Buenas prácticas</h2>
+                    <ul class="bullets">
+                        <li>Prefiere clases sobre IDs para estilos</li>
+                        <li>Mantén selectores simples (2-3 niveles máximo)</li>
+                        <li>Evita selectores excesivamente específicos (<code>#header nav ul li a</code>)</li>
+                        <li>Usa nombres de clases descriptivos (<code>.btn-primary</code> no <code>.blue-button</code>)</li>
+                        <li>Agrupa selectores relacionados</li>
+                        <li>Evita <code>!important</code></li>
+                        <li>Usa comentarios para secciones de tu CSS</li>
+                    </ul>
+                </article>
+
+                <!-- 9. BOX MODEL Y BOX SIZING -->
+                <article id="box-model" class="card">
+                    <h2>Box model</h2>
+                    <p>Compuesto por: <strong>MARGEN</strong> (margin: 30px), <strong>BORDE</strong> (border: 3px), <strong>PADDING</strong> (padding: 20px) y <strong>CONTENIDO</strong>.</p>
+
+                    <div id="box-sizing" class="sub-section">
+                        <h3>Box Sizing</h3>
+                        <div class="flex-demo">
+                            <div class="box-demo content-b">
+                                <strong>1. CON box-sizing: content-box (Por defecto)</strong><br>
+                                Padding y Border se suman por fuera.<br>
+                                Ancho total = 300px + 20px(izq) + 20px(der) + 5px(borde) + 5px(borde) = <strong>350px</strong>
+                            </div>
+                            <div class="box-demo border-b">
+                                <strong>2. CON box-sizing: border-box (Recomendado)</strong><br>
+                                El ancho fijado es el tamaño final exacto.<br>
+                                Ancho total = <strong>300px</strong> (El contenido interno se ajusta).
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 10. DISPLAY LINE/BLOCK Y OVERFLOW -->
+                <article id="display" class="card">
+                    <h2>Display Line/Block</h2>
+                    <div class="disp-block">
+                        <strong>DISPLAY: BLOCK (div)</strong><br>
+                        Salto de línea automático. Toma todo el ancho disponible (width: 100%). Control total de W/H y márgenes.
+                    </div>
+                    
+                    <div class="disp-inline-container">
+                        <span class="disp-inline">DISPLAY: INLINE (span)</span>
+                        <span class="disp-inline">Fluye como texto. Ignores Width y Height.</span>
+                    </div>
+
+                    <div class="disp-inblock">
+                        <strong>DISPLAY: INLINE-BLOCK</strong><br>
+                        Fluye horizontalmente como inline pero respeta el control de W/H y márgenes como block.
+                    </div>
+
+                    <div id="overflow" class="sub-section">
+                        <h3>Overflow</h3>
+                        <div class="flex-demo">
+                            <div class="of-box of-h">
+                                <strong>OVERFLOW: HIDDEN</strong><br>
+                                Recorta el contenido. Útil para recortar imágenes redondeadas o evitar desbordes.
+                            </div>
+                            <div class="of-box of-s">
+                                <strong>OVERFLOW: SCROLL</strong><br>
+                                Barras fijas visibles siempre. Para paneles con diseño estricto o galerías fijas.
+                            </div>
+                            <div class="of-box of-a">
+                                <strong>OVERFLOW: AUTO</strong><br>
+                                Barra dinámica (solo si es necesario). Para modales, chats y tablas responsivas.
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </main>
+
+        </div>
+
+        <!-- FOOTER BAR -->
+        <footer class="editor-status">
+            <span> main*</span>
+            <span>UTF-8</span>
+            <span>HTML / CSS</span>
+        </footer>
+
+    </div>
+
+</body>
+</html>
