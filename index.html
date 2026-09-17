@@ -1,252 +1,1165 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Introducción a CSS - Temario PDF Estricto</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAPA DE ESTUDIO FULL STACK DEVELOPER / M1 L2 / CSS</title>
+
+  <!-- Carga de Fuentes de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400&family=Bungee&family=Dancing+Script:wght@600&family=Indie+Flower&family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500;800&family=Playfair+Display:ital,wght@0,600;1,400&family=Press+Start+2P&family=UnifrakturMaguntia&family=VT323&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       RESET & BASE STYLES - WHITE CRT TERMINAL THEME
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #050505;
+      color: #FFFFFF;
+      font-family: 'JetBrains Mono', monospace;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Animación Blink de la Terminal */
+    @keyframes blinkAnimation {
+      0% { opacity: 1; }
+      50% { opacity: 0.1; }
+      100% { opacity: 1; }
+    }
+
+    /* Header Principal */
+    header {
+      background-color: #000000;
+      border-bottom: 2px solid #FFFFFF;
+      padding: 12px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    header h1 {
+      font-family: 'Press Start 2P', 'VT323', monospace;
+      font-size: 2.1rem;
+      color: #FFFFFF;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: 2px 2px #444;
+      animation: blinkAnimation 1.2s infinite ease-in-out;
+    }
+
+    .ascii-title {
+      font-family: monospace;
+      font-size: 0.5rem;
+      white-space: pre;
+      line-height: 1;
+      color: #CCCCCC;
+    }
+
+    /* Layout Principal Dividido (Split Screen) */
+    .app-container {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 65px);
+    }
+
+    /* Columna Izquierda: Panel de Control y Código */
+    .left-panel {
+      width: 45%;
+      background-color: #0a0a0a;
+      border-right: 2px solid #555555;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    /* Columna Derecha: Vista Renderizada Interactiva */
+    .right-panel {
+      width: 55%;
+      background-color: #111111;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+    }
+
+    /* Navegación por Módulos (12 Temas del PDF) */
+    .topic-nav {
+      display: flex;
+      flex-wrap: wrap;
+      background-color: #000;
+      border-bottom: 1px solid #444;
+      padding: 4px;
+      gap: 3px;
+    }
+
+    .topic-btn {
+      background: #111;
+      color: #AAA;
+      border: 1px solid #444;
+      padding: 5px 8px;
+      font-family: inherit;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .topic-btn:hover, .topic-btn.active {
+      background: #FFFFFF;
+      color: #000000;
+      font-weight: bold;
+      border-color: #FFFFFF;
+    }
+
+    /* Paneles de Editor de Código */
+    .editor-section {
+      padding: 15px;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .editor-section.active {
+      display: flex;
+    }
+
+    .section-title {
+      font-size: 0.88rem;
+      color: #FFFFFF;
+      border-bottom: 1px dashed #666;
+      padding-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    /* Visor de Código Estilizado */
+    .code-viewer {
+      background-color: #000000;
+      border: 1px solid #444;
+      padding: 10px;
+      font-size: 0.75rem;
+      color: #E0E0E0;
+      white-space: pre-wrap;
+      border-left: 3px solid #FFFFFF;
+      line-height: 1.5;
+    }
+
+    /* Controles de Entrada */
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background-color: #141414;
+      padding: 8px;
+      border: 1px solid #333;
+    }
+
+    .control-group label {
+      font-size: 0.73rem;
+      color: #DDD;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    input[type="range"], select, input[type="text"] {
+      width: 100%;
+      background: #000;
+      color: #FFF;
+      border: 1px solid #666;
+      padding: 4px;
+      font-family: inherit;
+      font-size: 0.75rem;
+    }
+
+    /* Canvas Renderizado */
+    .canvas-card {
+      background-color: #080808;
+      border: 1px solid #444;
+      border-radius: 4px;
+      padding: 15px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+      min-height: 250px;
+    }
+
+    .canvas-header {
+      font-size: 0.75rem;
+      color: #888;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #333;
+      padding-bottom: 4px;
+    }
+
+    /* ==========================================================================
+       ESTILOS ESPECÍFICOS DE MÓDULOS
+       ========================================================================== */
+
+    /* 1. Intro Toggle */
+    .no-css-view { font-family: times, serif; color: #000; background: #fff; padding: 10px; }
+    .with-css-view { font-family: 'JetBrains Mono', monospace; color: #fff; background: #222; padding: 15px; border: 2px solid #fff; }
+
+    /* 2. Cascada & Especificidad */
+    .cascade-demo-item {
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      border: 1px solid #444;
+      background-color: #111;
+      font-size: 0.8rem;
+    }
+
+    /* 4. Selectores Interactivos */
+    .demo-link-btn {
+      display: inline-block;
+      padding: 8px 14px;
+      color: #FFFFFF;
+      background: #222;
+      border: 1px solid #888;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+    .demo-link-btn:hover { color: #000; background: #FFF; }
+    .demo-link-btn:active { color: #FF3333; background: #000; }
+
+    /* 5. Box Model */
+    .bm-visualizer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    .bm-wrapper { 
+      background-color: #333; 
+      padding: var(--bm-margin, 15px); 
+      border: 1px dashed #AAA; 
+      width: 100%;
+      position: relative;
+    }
+    .bm-border-box { 
+      border: var(--bm-border-width, 3px) solid #FFFFFF; 
+      background-color: #222; 
+    }
+    .bm-padding-box { 
+      padding: var(--bm-padding, 15px); 
+      background-color: #111; 
+    }
+    .bm-content-box {
+      background-color: #000000; color: #FFFFFF; border: 1px solid #555;
+      width: var(--bm-width, 100%); height: var(--bm-height, auto);
+      box-sizing: var(--bm-box-sizing, content-box); overflow: hidden;
+      padding: 8px;
+    }
+    .bm-paragraph { font-size: 0.8rem; line-height: 1.5; color: #E0E0E0; }
+
+    .layer-label {
+      font-size: 0.65rem;
+      color: #AAA;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+      display: block;
+    }
+
+    /* 6. Display */
+    .display-demo-box { background: #fff; color: #000; padding: 8px; margin: 4px; font-weight: bold; border: 1px solid #888; }
+
+    /* 7. Overflow */
+    .overflow-box { width: 220px; height: 150px; border: 2px solid #fff; background: #000; padding: 8px; }
+    .overflow-box-thick::-webkit-scrollbar { width: 12px; height: 12px; }
+    .overflow-box-thick::-webkit-scrollbar-track { background: #222; border: 1px solid #555; }
+    .overflow-box-thick::-webkit-scrollbar-thumb { background: #FFF; border-radius: 0px; }
+    .overflow-box-thick::-webkit-scrollbar-thumb:hover { background: #CCC; }
+
+    /* 8. Colors Preview */
+    .color-swatch { width: 100%; height: 60px; border: 1px solid #fff; margin-top: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000; text-shadow: 0 0 2px #fff; }
+
+    /* 10. Flexbox */
+    .flex-container-demo { display: flex; background: #1a1a1a; padding: 10px; border: 1px solid #444; min-height: 100px; margin-top: 10px; }
+    .flex-item-demo { background: #fff; color: #000; padding: 8px; margin: 4px; font-weight: bold; }
+
+    /* 11. Grid */
+    .grid-container-demo { display: grid; background-color: #181818; padding: 12px; border: 1px solid #444; margin-top: 10px; }
+    .grid-item-demo { background-color: #000; color: #FFF; border: 1px solid #888; padding: 8px; text-align: center; font-size: 0.8rem; }
+    .grid-item-demo.featured { background-color: #FFF; color: #000; font-weight: bold; }
+
+    /* ==========================================================================
+       TEMA 12: DINO RUNNER ANIMADO EN TAMAÑO GIGANTE (BLANCO SOBRE NEGRO)
+       ========================================================================== */
+    .dino-container {
+      width: 100%;
+      height: 380px;
+      background-color: #000000;
+      border: 2px solid #FFFFFF;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+    }
+
+    .dino-score {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.2rem;
+      color: #FFFFFF;
+      letter-spacing: 2px;
+    }
+
+    .dino-ground {
+      width: 200%;
+      height: 4px;
+      background: repeating-linear-gradient(90deg, #FFFFFF, #FFFFFF 15px, transparent 15px, transparent 25px);
+      position: absolute;
+      bottom: 40px;
+      animation: moveGround 1s linear infinite;
+    }
+
+    @keyframes moveGround {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Dinosaurio Pixeleado Blanco */
+    .dino-player {
+      width: 44px;
+      height: 48px;
+      position: absolute;
+      bottom: 44px;
+      left: 50px;
+      background-color: #FFFFFF;
+      /* Mascara Pixel Art del T-Rex */
+      clip-path: polygon(
+        /* Cabeza y Hocico */
+        70% 0%, 100% 0%, 100% 35%, 75% 35%, 75% 25%, 55% 25%, 55% 15%, 70% 15%,
+        /* Cuerpo y Espalda */
+        55% 35%, 55% 60%, 80% 60%, 80% 50%, 65% 50%, 65% 35%,
+        /* Cola y Pecho */
+        35% 60%, 15% 45%, 0% 45%, 0% 30%, 15% 30%, 35% 45%,
+        /* Patas */
+        35% 80%, 20% 80%, 20% 100%, 35% 100%, 35% 85%, 50% 85%, 50% 100%, 65% 100%, 65% 75%, 45% 75%
+      );
+      transform: scale(2.2); /* Escalado Gigante */
+      transform-origin: bottom left;
+      animation: dinoRun 0.25s steps(2) infinite;
+    }
+
+    .dino-player.jumping {
+      animation: dinoJump 0.75s ease-in-out infinite;
+    }
+
+    @keyframes dinoRun {
+      0% { transform: scale(2.2) translateY(0); }
+      50% { transform: scale(2.2) translateY(-3px); }
+      100% { transform: scale(2.2) translateY(0); }
+    }
+
+    @keyframes dinoJump {
+      0% { transform: scale(2.2) translateY(0); }
+      50% { transform: scale(2.2) translateY(-110px); }
+      100% { transform: scale(2.2) translateY(0); }
+    }
+
+    /* Cactus Obstáculo Blanco */
+    .cactus-obstacle {
+      width: 18px;
+      height: 40px;
+      background-color: #FFFFFF;
+      position: absolute;
+      bottom: 44px;
+      right: -30px;
+      clip-path: polygon(
+        35% 0%, 65% 0%, 65% 100%, 35% 100%, 35% 70%, 10% 70%, 10% 40%, 25% 40%, 25% 55%, 35% 55%,
+        65% 55%, 75% 55%, 75% 30%, 90% 30%, 90% 60%, 65% 60%
+      );
+      transform: scale(2.2);
+      transform-origin: bottom right;
+      animation: moveCactus 1.8s linear infinite;
+    }
+
+    @keyframes moveCactus {
+      0% { right: -40px; }
+      100% { right: 110%; }
+    }
+
+    .dino-instructions {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.65rem;
+      color: #888;
+    }
+
+    /* Scrollbars Generales */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #444; }
+    ::-webkit-scrollbar-thumb:hover { background: #FFF; }
+
+    /* Responsividad Móvil */
+    @media (max-width: 850px) {
+      body { height: auto; overflow-y: auto; }
+      .app-container { flex-direction: column; height: auto; }
+      .left-panel, .right-panel { width: 100%; border-right: none; }
+      .left-panel { border-bottom: 2px solid #555; }
+      .ascii-title { display: none; }
+      header h1 { font-size: 1.1rem; }
+      .topic-btn { padding: 6px 10px; font-size: 0.75rem; }
+    }
+  </style>
 </head>
 <body>
-<a href="index2.html" style="background: yellow; color: black; padding: 10px; font-weight: bold; display: inline-block;">👉 Probar Flexbox</a>
-    <div class="vscode-app">
+
+  <!-- Encabezado con Título al Doble y Efecto Blink -->
+  <header>
+    <div>
+      <h1>MAPA DE ESTUDIO FULL STACK DEVELOPER / M1 L2 / CSS</h1>
+    </div>
+    <div class="ascii-title">
+ ___ ____ ____ 
+/ __/ ___/ ___|
+| |  \___ \___ \
+| |______) |__) |
+ \____|____/____/ 
+    </div>
+  </header>
+
+  <!-- Contenedor Dividido de Aplicación -->
+  <div class="app-container">
+    
+    <!-- PANEL IZQUIERDO: CONTROLES Y CÓDIGO -->
+    <div class="left-panel">
+      <!-- Navegador con Todos los 12 Temas del PDF -->
+      <nav class="topic-nav">
+        <button class="topic-btn active" onclick="switchTopic('intro')">1. Intro</button>
+        <button class="topic-btn" onclick="switchTopic('cascade')">2. Cascada</button>
+        <button class="topic-btn" onclick="switchTopic('methods')">3. Métodos</button>
+        <button class="topic-btn" onclick="switchTopic('selectors')">4. Selectores</button>
+        <button class="topic-btn" onclick="switchTopic('box-model')">5. Box Model</button>
+        <button class="topic-btn" onclick="switchTopic('display')">6. Display</button>
+        <button class="topic-btn" onclick="switchTopic('overflow')">7. Overflow</button>
+        <button class="topic-btn" onclick="switchTopic('colors')">8. Colores</button>
+        <button class="topic-btn" onclick="switchTopic('typography')">9. Tipografía</button>
+        <button class="topic-btn" onclick="switchTopic('flexbox')">10. Flexbox</button>
+        <button class="topic-btn" onclick="switchTopic('grid')">11. Grid</button>
+        <button class="topic-btn" onclick="switchTopic('best-practices')">12. Prácticas</button>
+      </nav>
+
+      <!-- 1. INTRODUCCIÓN -->
+      <div id="intro-editor" class="editor-section active">
+        <h2 class="section-title">1. Introducción a CSS</h2>
+        <p style="font-size: 0.75rem; color: #AAA;">Prueba la diferencia entre un documento sin estilos y uno con hojas de estilo en cascada[cite: 1].</p>
+        <div class="control-group">
+          <label>Modo de Vista:</label>
+          <select id="intro-mode" onchange="updateIntro()">
+            <option value="with-css">Con CSS (Estilizado)</option>
+            <option value="no-css">Sin CSS (HTML Puro)</option>
+          </select>
+        </div>
+        <div class="code-viewer" id="code-intro"></div>
+      </div>
+
+      <!-- 2. CASCADA Y ESPECIFICIDAD -->
+      <div id="cascade-editor" class="editor-section">
+        <h2 class="section-title">2. Cascada, Especificidad y Prioridad</h2>
+        <p style="font-size: 0.75rem; color: #AAA;">Las reglas CSS se evalúan según el peso de sus selectores[cite: 1]:</p>
         
-        <!-- PESTAÑAS SUPERIORES -->
-        <div class="editor-tabs">
-            <div class="tab active"><span class="icon-html">&lt;/&gt;</span> index.html</div>
-            <div class="tab"><span class="icon-css">#</span> styles.css</div>
-            <div class="tab-info">VS Code Workspace</div>
+        <div class="control-group">
+          <label><input type="checkbox" id="chk-element" checked onchange="updateCascade()"> 1. Selector de Elemento (p)</label>
+          <div style="font-size:0.7rem; color:#888;">Prioridad: Baja (1)[cite: 1]</div>
         </div>
 
-        <!-- ESTRUCTURA 2 COLUMNAS FIJAS -->
-        <div class="editor-main">
-            
-            <!-- COLUMNA IZQUIERDA: TEMARIO EXACTO DEL PDF -->
-            <aside class="left-sidebar">
-                <div class="sidebar-title">PESTAÑAS DEL DOCUMENTO</div>
-
-                <nav id="indice" class="topic-list">
-                    <a href="#intro" class="topic-item active"><span class="hash">#</span> Introducción a CSS</a>
-                    <a href="#beneficios" class="topic-item sub"><span class="hash">#</span> Beneficios de CSS</a>
-                    <a href="#sin-vs-con" class="topic-item sub"><span class="hash">#</span> Sin CSS vs Con CSS</a>
-                    <a href="#cascada" class="topic-item"><span class="hash">#</span> ¿Cómo funciona la cascada?</a>
-                    <a href="#estilos" class="topic-item"><span class="hash">#</span> Estilos de CSS</a>
-                    <a href="#link" class="topic-item sub"><span class="hash">#</span> Etiqueta &lt;link&gt;</a>
-                    <a href="#css-basica" class="topic-item"><span class="hash">#</span> CSS básica</a>
-                    <a href="#css-elementos" class="topic-item sub"><span class="hash">#</span> CSS por elementos</a>
-                    <a href="#css-clases" class="topic-item sub"><span class="hash">#</span> CSS por clases</a>
-                    <a href="#css-id" class="topic-item sub"><span class="hash">#</span> CSS por ID</a>
-                    <a href="#estados-enlace" class="topic-item"><span class="hash">#</span> Por estados de enlace</a>
-                    <a href="#buenas-practicas" class="topic-item"><span class="hash">#</span> Buenas prácticas</a>
-                    <a href="#box-model" class="topic-item"><span class="hash">#</span> Box model</a>
-                    <a href="#box-sizing" class="topic-item sub"><span class="hash">#</span> Box Sizing</a>
-                    <a href="#display" class="topic-item"><span class="hash">#</span> Display Line/Block</a>
-                    <a href="#overflow" class="topic-item sub"><span class="hash">#</span> Overflow</a>
-                </nav>
-            </aside>
-
-            <!-- COLUMNA DERECHA: CONTENIDO 100% FIEL AL PDF -->
-            <main class="right-content">
-
-                <!-- 1. INTRODUCCIÓN -->
-                <article id="intro" class="card">
-                    <h2>Introducción a CSS</h2>
-                    <p class="sub"><span class="cm">// Cascading Style Sheets (Hojas de Estilo en Cascada)</span></p>
-                </article>
-
-                <!-- 2. BENEFICIOS DE CSS -->
-                <article id="beneficios" class="card">
-                    <h2>Beneficios de CSS</h2>
-                    <p>Tipografía, espaciado, grids, bordes, <strong>responsividad</strong>.</p>
-                </article>
-
-                <!-- 3. SIN CSS VS CON CSS -->
-                <article id="sin-vs-con" class="card">
-                    <h2>Sin CSS vs Con CSS</h2>
-                    <div class="flex-demo">
-                        <div class="demo-sin">
-                            <h4>Bienvenido a mi sitio</h4>
-                            <p>Esta es una página simple sin estilos.</p>
-                            <button>Haz clic aquí</button>
-                        </div>
-                        <div class="demo-con">
-                            <h4>Bienvenido a mi sitio</h4>
-                            <p>Esta es una página simple con estilos.</p>
-                            <button class="btn-con">Haz clic aquí</button>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- 4. CASCADA -->
-                <article id="cascada" class="card">
-                    <h2>¿Cómo funciona la aplicación de estilos en cascada?</h2>
-                    
-                    <div class="code-box">
-                        <pre><code><span class="cm">/* Regla 1: todos los párrafos azules */</span>
-<span class="tg">p</span> { <span class="pr">color</span>: <span class="vl">blue</span>; }
-
-<span class="cm">/* Regla 2: párrafos con clase "destacado" rojos */</span>
-<span class="cl">.destacado</span> { <span class="pr">color</span>: <span class="vl">red</span>; }
-
-<span class="cm">/* Regla 3: el párrafo con id "principal" verde */</span>
-<span class="id">#principal</span> { <span class="pr">color</span>: <span class="vl">green</span>; }</code></pre>
-                    </div>
-
-                    <ul class="bullets">
-                        <li>IDs tienen más prioridad que clases</li>
-                        <li>Clases tienen más prioridad que elementos</li>
-                        <li>Estilos en línea tienen más prioridad que todo</li>
-                        <li>Si hay empate, la regla que aparece más abajo en el código gana.</li>
-                    </ul>
-                </article>
-
-                <!-- 5. ESTILOS DE CSS -->
-                <article id="estilos" class="card">
-                    <h2>Estilos de CSS</h2>
-                    <p><strong>1. Estilo en línea:</strong> <code>&lt;p style="color: blue; font-size: 18px;"&gt;</code></p>
-                    <p><strong>2. Estilo interno:</strong> Bloque <code>&lt;style&gt;</code> dentro de <code>&lt;head&gt;</code></p>
-                    <p><strong>3. Estilos externos:</strong> Archivo separado <code>styles.css</code> vinculados mediante <code>&lt;link&gt;</code></p>
-                    
-                    <div id="link" class="sub-section">
-                        <h3>Etiqueta &lt;link&gt;</h3>
-                        <p>Se usa para conectar el CSS externo desde el <code>&lt;head&gt;</code> de html:</p>
-                        <code class="inline-code">&lt;link rel="stylesheet" href="styles.css"&gt;</code>
-                        <ul class="bullets">
-                            <li><code>&lt;link&gt;</code>: Etiqueta auto-cerrante que vincula recursos ext</li>
-                            <li><code>rel="stylesheet"</code>: Especifica que es una hoja de estilo</li>
-                            <li><code>href="styles.css"</code>: Ruta al archivo CSS (misma carpeta, subcarpeta o URL)</li>
-                        </ul>
-                    </div>
-                </article>
-
-                <!-- 6. CSS BÁSICA Y SELECTORES -->
-                <article id="css-basica" class="card">
-                    <h2>CSS básica</h2>
-                    <div class="code-box">
-                        <pre><code><span class="tg">selector</span> {
-    <span class="pr">propiedad</span>: <span class="vl">valor</span>;
-    <span class="pr">otra-propiedad</span>: <span class="vl">otro-valor</span>;
-}</code></pre>
-                    </div>
-
-                    <div id="css-elementos" class="sub-section">
-                        <h3>CSS por elementos</h3>
-                        <p>Afecta a etiquetas directas: <code>p { color: blue; }</code>, <code>h1 { font-size: 32px; }</code>, <code>a { text-decoration: none; }</code></p>
-                    </div>
-
-                    <div id="css-clases" class="sub-section">
-                        <h3>CSS por clases</h3>
-                        <p class="txt-yellow">.destacado { background-color: yellow; }</p>
-                        <p class="txt-red">.importante { color: red; }</p>
-                    </div>
-
-                    <div id="css-id" class="sub-section">
-                        <h3>CSS por ID</h3>
-                        <p class="txt-navy">#header { background-color: navy; color: white; padding: 20px; }</p>
-                    </div>
-                </article>
-
-                <!-- 7. ESTADOS DE ENLACE -->
-                <article id="estados-enlace" class="card">
-                    <h2>Por estados de enlace</h2>
-                    <ul class="bullets">
-                        <li><code>a:link</code> - Enlace no visitado</li>
-                        <li><code>a:visited</code> - Enlace visitado</li>
-                        <li><code>a:hover</code> - Enlace con el mouse encima</li>
-                        <li><code>a:active</code> - Enlace mientras se hace click</li>
-                    </ul>
-                    <div class="demo-link-container">
-                        <a href="#estados-enlace" class="demo-link">Pasa el mouse sobre este enlace (:hover)</a>
-                    </div>
-                </article>
-
-                <!-- 8. BUENAS PRÁCTICAS (CONTENIDO COMPLETO DEL PDF) -->
-                <article id="buenas-practicas" class="card">
-                    <h2>Buenas prácticas</h2>
-                    <ul class="bullets">
-                        <li>Prefiere clases sobre IDs para estilos</li>
-                        <li>Mantén selectores simples (2-3 niveles máximo)</li>
-                        <li>Evita selectores excesivamente específicos (<code>#header nav ul li a</code>)</li>
-                        <li>Usa nombres de clases descriptivos (<code>.btn-primary</code> no <code>.blue-button</code>)</li>
-                        <li>Agrupa selectores relacionados</li>
-                        <li>Evita <code>!important</code></li>
-                        <li>Usa comentarios para secciones de tu CSS</li>
-                    </ul>
-                </article>
-
-                <!-- 9. BOX MODEL Y BOX SIZING -->
-                <article id="box-model" class="card">
-                    <h2>Box model</h2>
-                    <p>Compuesto por: <strong>MARGEN</strong> (margin: 30px), <strong>BORDE</strong> (border: 3px), <strong>PADDING</strong> (padding: 20px) y <strong>CONTENIDO</strong>.</p>
-
-                    <div id="box-sizing" class="sub-section">
-                        <h3>Box Sizing</h3>
-                        <div class="flex-demo">
-                            <div class="box-demo content-b">
-                                <strong>1. CON box-sizing: content-box (Por defecto)</strong><br>
-                                Padding y Border se suman por fuera.<br>
-                                Ancho total = 300px + 20px(izq) + 20px(der) + 5px(borde) + 5px(borde) = <strong>350px</strong>
-                            </div>
-                            <div class="box-demo border-b">
-                                <strong>2. CON box-sizing: border-box (Recomendado)</strong><br>
-                                El ancho fijado es el tamaño final exacto.<br>
-                                Ancho total = <strong>300px</strong> (El contenido interno se ajusta).
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- 10. DISPLAY LINE/BLOCK Y OVERFLOW -->
-                <article id="display" class="card">
-                    <h2>Display Line/Block</h2>
-                    <div class="disp-block">
-                        <strong>DISPLAY: BLOCK (div)</strong><br>
-                        Salto de línea automático. Toma todo el ancho disponible (width: 100%). Control total de W/H y márgenes.
-                    </div>
-                    
-                    <div class="disp-inline-container">
-                        <span class="disp-inline">DISPLAY: INLINE (span)</span>
-                        <span class="disp-inline">Fluye como texto. Ignores Width y Height.</span>
-                    </div>
-
-                    <div class="disp-inblock">
-                        <strong>DISPLAY: INLINE-BLOCK</strong><br>
-                        Fluye horizontalmente como inline pero respeta el control de W/H y márgenes como block.
-                    </div>
-
-                    <div id="overflow" class="sub-section">
-                        <h3>Overflow</h3>
-                        <div class="flex-demo">
-                            <div class="of-box of-h">
-                                <strong>OVERFLOW: HIDDEN</strong><br>
-                                Recorta el contenido. Útil para recortar imágenes redondeadas o evitar desbordes.
-                            </div>
-                            <div class="of-box of-s">
-                                <strong>OVERFLOW: SCROLL</strong><br>
-                                Barras fijas visibles siempre. Para paneles con diseño estricto o galerías fijas.
-                            </div>
-                            <div class="of-box of-a">
-                                <strong>OVERFLOW: AUTO</strong><br>
-                                Barra dinámica (solo si es necesario). Para modales, chats y tablas responsivas.
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-            </main>
-
+        <div class="control-group">
+          <label><input type="checkbox" id="chk-class" checked onchange="updateCascade()"> 2. Selector de Clase (.destacado)</label>
+          <div style="font-size:0.7rem; color:#888;">Prioridad: Media (10)[cite: 1]</div>
         </div>
 
-        <!-- FOOTER BAR -->
-        <footer class="editor-status">
-            <span> main*</span>
-            <span>UTF-8</span>
-            <span>HTML / CSS</span>
-        </footer>
+        <div class="control-group">
+          <label><input type="checkbox" id="chk-id" checked onchange="updateCascade()"> 3. Selector de ID (#principal)</label>
+          <div style="font-size:0.7rem; color:#888;">Prioridad: Alta (100)[cite: 1]</div>
+        </div>
+
+        <div class="control-group">
+          <label><input type="checkbox" id="chk-inline" onchange="updateCascade()"> 4. Estilo en Línea (style="...")</label>
+          <div style="font-size:0.7rem; color:#888;">Prioridad: Máxima (1000)[cite: 1]</div>
+        </div>
+
+        <h3 style="font-size: 0.78rem; color: #FFF;">Sintaxis Declarada en CSS:</h3>
+        <div class="code-viewer" id="code-cascade"></div>
+      </div>
+
+      <!-- 3. MÉTODOS DE APLICACIÓN -->
+      <div id="methods-editor" class="editor-section">
+        <h2 class="section-title">3. Métodos de Aplicación</h2>
+        <p style="font-size: 0.75rem; color: #AAA;">Las tres formas de incluir estilos en un proyecto web[cite: 1].</p>
+        <div class="code-viewer">
+/* 1. Estilo En Línea */
+&lt;p style="color: white; font-size: 18px;"&gt;Texto&lt;/p&gt;
+
+/* 2. Estilo Interno */
+&lt;head&gt;
+  &lt;style&gt;
+    p { color: white; font-size: 18px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+/* 3. Estilo Externo (Recomendado) */
+&lt;link rel="stylesheet" href="styles.css"&gt;
+        </div>
+      </div>
+
+      <!-- 4. SELECTORES Y ESTADOS DE ENLACE -->
+      <div id="selectors-editor" class="editor-section">
+        <h2 class="section-title">4. Selectores y Pseudo-clases de Enlace</h2>
+        <p style="font-size: 0.75rem; color: #AAA;">Prueba las pseudo-clases de enlace dinámicas[cite: 1]:</p>
+
+        <div class="control-group">
+          <label>Simular Estado Interactivo:</label>
+          <select id="input-link-state" onchange="updateSelectors()">
+            <option value="link">a:link (Estado Inicial / No Visitado)</option>
+            <option value="visited">a:visited (Enlace Visitado)</option>
+            <option value="hover">a:hover (Mouse encima)</option>
+            <option value="active">a:active (Durante el Clic)</option>
+          </select>
+        </div>
+
+        <h3 style="font-size: 0.78rem; color: #FFF;">Declaración de Selectores CSS:</h3>
+        <div class="code-viewer" id="code-selectors">
+/* Estados de Enlace */
+a:link    { color: #FFFFFF; text-decoration: none; }
+a:visited { color: #888888; }
+a:hover   { color: #000000; background-color: #FFFFFF; }
+a:active  { color: #FF3333; }
+        </div>
+      </div>
+
+      <!-- 5. BOX MODEL CON PÁRRAFO REAL -->
+      <div id="box-model-editor" class="editor-section">
+        <h2 class="section-title">5. Modelo de Caja & Rectángulos Concéntricos</h2>
+        <p style="font-size: 0.75rem; color: #AAA;">Ajusta márgenes, rellenos, bordes y el tipo de cálculo de caja (`box-sizing`)[cite: 1].</p>
+
+        <div class="control-group">
+          <label>box-sizing: <span id="val-box-sizing">border-box</span></label>
+          <select id="input-box-sizing" onchange="updateBoxModel()">
+            <option value="border-box" selected>border-box (Recomendado)</option>
+            <option value="content-box">content-box (Por defecto)</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>Margin (Exterior): <span id="val-margin">15px</span></label>
+          <input type="range" id="input-margin" min="0" max="40" value="15" oninput="updateBoxModel()">
+        </div>
+
+        <div class="control-group">
+          <label>Padding (Interior): <span id="val-padding">15px</span></label>
+          <input type="range" id="input-padding" min="0" max="50" value="15" oninput="updateBoxModel()">
+        </div>
+
+        <div class="control-group">
+          <label>Border Width (Grosor Borde): <span id="val-border">3px</span></label>
+          <input type="range" id="input-border" min="0" max="12" value="3" oninput="updateBoxModel()">
+        </div>
+
+        <div class="control-group">
+          <label>Width (Ancho Contenido): <span id="val-width">100%</span></label>
+          <input type="range" id="input-width" min="40" max="100" value="100" oninput="updateBoxModel()">
+        </div>
+
+        <div class="code-viewer" id="code-box-model"></div>
+      </div>
+
+      <!-- 6. DISPLAY -->
+      <div id="display-editor" class="editor-section">
+        <h2 class="section-title">6. Propiedad Display</h2>
+        <p style="font-size: 0.75rem; color: #AAA;">Control del flujo visual: block, inline, inline-block[cite: 1].</p>
+        <div class="control-group">
+          <label>Tipo de Display:</label>
+          <select id="display-mode" onchange="updateDisplay()">
+            <option value="block">block (Ocupa todo el ancho)</option>
+            <option value="inline">inline (Fluye como texto)</option>
+            <option value="inline-block">inline-block (Fluye y respeta W/H)</option>
+          </select>
+        </div>
+        <div class="code-viewer" id="code-display"></div>
+      </div>
+
+      <!-- 7. OVERFLOW -->
+      <div id="overflow-editor" class="editor-section">
+        <h2 class="section-title">7. Manejo de Overflow</h2>
+        <p style="font-size: 0.75rem; color: #AAA;">Control del contenido que excede los límites del contenedor[cite: 1].</p>
+        <div class="control-group">
+          <label>overflow:</label>
+          <select id="overflow-mode" onchange="updateOverflow()">
+            <option value="scroll">scroll (Barras siempre visibles)</option>
+            <option value="auto">auto (Barras solo si es necesario)</option>
+            <option value="hidden">hidden (Recorta el sobrante)</option>
+          </select>
+        </div>
+        <div class="code-viewer" id="code-overflow"></div>
+      </div>
+
+      <!-- 8. COLORES -->
+      <div id="colors-editor" class="editor-section">
+        <h2 class="section-title">8. Sistemas de Color</h2>
+        <p style="font-size: 0.75rem; color: #AAA;">Sintaxis HEX, RGB y HSL interactivas[cite: 1].</p>
+        <div class="control-group">
+          <label>Hue / Tono (0-360): <span id="val-hue">200</span></label>
+          <input type="range" id="input-hue" min="0" max="360" value="200" oninput="updateColors()">
+        </div>
+        <div class="control-group">
+          <label>Saturación (0-100%): <span id="val-sat">80%</span></label>
+          <input type="range" id="input-sat" min="0" max="100" value="80" oninput="updateColors()">
+        </div>
+        <div class="code-viewer" id="code-colors"></div>
+      </div>
+
+      <!-- 9. TIPOGRAFÍA (10 FUENTES) -->
+      <div id="typography-editor" class="editor-section">
+        <h2 class="section-title">9. Tipografía (10 Fuentes Distintas)</h2>
+        <p style="font-size: 0.75rem; color: #AAA;">10 familias tipográficas muy variadas para distintos propósitos.</p>
+
+        <div class="control-group">
+          <label>Familia Tipográfica:</label>
+          <select id="input-font-family" onchange="updateTypography()">
+            <option value="'JetBrains Mono', monospace">1. JetBrains Mono (Monospaced / Técnico)</option>
+            <option value="'Inter', sans-serif">2. Inter (Sans-Serif Clean / UI)</option>
+            <option value="'Playfair Display', serif">3. Playfair Display (Serif Elegante)</option>
+            <option value="'Press Start 2P', monospace">4. Press Start 2P (Pixel 8-Bit Retro)</option>
+            <option value="'Bungee', cursive">5. Bungee (Display Impacto)</option>
+            <option value="'Dancing Script', cursive">6. Dancing Script (Cursiva Fluida)</option>
+            <option value="'UnifrakturMaguntia', serif">7. UnifrakturMaguntia (Gótica / Blackletter)</option>
+            <option value="'Indie Flower', cursive">8. Indie Flower (Manuscrita Casual)</option>
+            <option value="'Orbitron', sans-serif">9. Orbitron (Futurista Sci-Fi)</option>
+            <option value="'Arvo', serif">10. Arvo (Slab-Serif Robusta)</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>Tamaño (font-size): <span id="val-type-size">1.0rem</span></label>
+          <input type="range" id="input-type-size" min="0.7" max="2.0" step="0.1" value="1.0" oninput="updateTypography()">
+        </div>
+
+        <div class="code-viewer" id="code-typography"></div>
+      </div>
+
+      <!-- 10. FLEXBOX -->
+      <div id="flexbox-editor" class="editor-section">
+        <h2 class="section-title">10. Layout Flexbox (1D)</h2>
+        <p style="font-size: 0.75rem; color: #AAA;">Distribución unidimensional de elementos[cite: 1].</p>
+        <div class="control-group">
+          <label>flex-direction:</label>
+          <select id="flex-dir" onchange="updateFlex()">
+            <option value="row">row (Horizontal)</option>
+            <option value="column">column (Vertical)</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>justify-content:</label>
+          <select id="flex-justify" onchange="updateFlex()">
+            <option value="flex-start">flex-start</option>
+            <option value="center">center</option>
+            <option value="space-between">space-between</option>
+            <option value="space-around">space-around</option>
+          </select>
+        </div>
+        <div class="code-viewer" id="code-flexbox"></div>
+      </div>
+
+      <!-- 11. CSS GRID -->
+      <div id="grid-editor" class="editor-section">
+        <h2 class="section-title">11. CSS Grid (2D Completo)</h2>
+        <p style="font-size: 0.75rem; color: #AAA;">Estructura bidimensional de columnas y filas explicadas en el PDF[cite: 1].</p>
+
+        <div class="control-group">
+          <label>grid-template-columns:</label>
+          <select id="input-grid-cols" onchange="updateGrid()">
+            <option value="repeat(3, 1fr)" selected>repeat(3, 1fr) - 3 Col. Iguales</option>
+            <option value="1fr 2fr 1fr">1fr 2fr 1fr - Columna Central Doble</option>
+            <option value="repeat(auto-fill, minmax(80px, 1fr))">repeat(auto-fill, minmax(80px, 1fr))</option>
+            <option value="repeat(auto-fit, minmax(80px, 1fr))">repeat(auto-fit, minmax(80px, 1fr))</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>grid-auto-rows (Filas Implícitas): <span id="val-grid-autorows">50px</span></label>
+          <input type="range" id="input-grid-autorows" min="30" max="100" value="50" oninput="updateGrid()">
+        </div>
+
+        <div class="control-group">
+          <label>gap (Espaciado): <span id="val-grid-gap">8px</span></label>
+          <input type="range" id="input-grid-gap" min="0" max="25" value="8" oninput="updateGrid()">
+        </div>
+
+        <div class="control-group">
+          <label>Spanning Elemento #1:</label>
+          <select id="input-grid-span" onchange="updateGrid()">
+            <option value="col2" selected>grid-column: span 2</option>
+            <option value="row2">grid-row: span 2</option>
+            <option value="none">Sin Spanning (1x1)</option>
+          </select>
+        </div>
+
+        <div class="code-viewer" id="code-grid"></div>
+      </div>
+
+      <!-- 12. MEJORES PRÁCTICAS LITERALES DEL PDF -->
+      <div id="best-practices-editor" class="editor-section">
+        <h2 class="section-title">12. Mejores Prácticas</h2>
+
+        <div class="code-viewer">
+/* ==========================================================================
+   Mejores practicas sobre el uso de CSS
+   ========================================================================== */
+• Prefiere clases sobre IDs para estilos[cite: 1]
+• Los nombres de clases deben describir el propósito, no la apariencia.[cite: 1]
+• Usa kebab-case (palabras minúsculas separadas por guiones) para nombres de clases:[cite: 1]
+• Mantén selectores simples (2-3 niveles máximo)[cite: 1]
+• Evita selectores excesivamente específicos (#header nav ul li a)[cite: 1]
+• Agrupa selectores relacionados[cite: 1]
+• Evita !important rompe el flujo natural de especificidad y crea problemas a futuro.[cite: 1]
+• Usa comentarios para secciones de tu CSS[cite: 1]
+• Antes de tus estilos, incluye un reset o normalize para consistencia entre navegadores.[cite: 1]
+
+/* ==========================================================================
+   Mejores practicas comentarios al codigo
+   ========================================================================== */
+• Explicar hacks o soluciones no obvias[cite: 1]
+• Documentar decisiones de diseño[cite: 1]
+• Marcar código temporal o que necesita revisión[cite: 1]
+• Dividir secciones grandes del archivo[cite: 1]
+        </div>
+      </div>
 
     </div>
 
+    <!-- PANEL DERECHO: VISTA RENDERIZADA INTERACTIVA -->
+    <div class="right-panel">
+      
+      <!-- RENDER 1: INTRO -->
+      <div id="canvas-intro" class="canvas-card">
+        <div class="canvas-header"><span>Vista Renderizada: Propósito y Beneficios de CSS</span></div>
+        <div id="intro-render-box" class="with-css-view">
+          <h2>Cascading Style Sheets (CSS)</h2>
+          <p style="margin-top:8px; font-size:0.8rem; line-height:1.5;">
+            <strong>Propósito y Beneficios principales según el PDF[cite: 1]:</strong><br>
+            • Control total de tipografía, espaciados, bordes y grids[cite: 1].<br>
+            • Separación clara de la estructura (HTML) y la presentación (CSS)[cite: 1].<br>
+            • Creación de interfaces limpias, legibles y responsivas[cite: 1].
+          </p>
+          <button style="margin-top:12px; padding:6px 12px; cursor:pointer;">Elemento de Prueba</button>
+        </div>
+      </div>
+
+      <!-- RENDER 2: CASCADA -->
+      <div id="canvas-cascade" class="canvas-card" style="display:none;">
+        <div class="canvas-header"><span>Vista Renderizada: Evaluación de Cascada y Prioridad</span></div>
+        <p style="font-size:0.75rem; color:#AAA; margin-bottom:10px;">
+          Mira cómo los selectores activos afectan al párrafo. Si activas varias reglas, ganará la de mayor especificidad[cite: 1].
+        </p>
+
+        <div class="cascade-demo-item" id="cascade-p-1">
+          Párrafo 1: &lt;p id="principal" class="destacado"&gt;Párrafo Principal&lt;/p&gt;
+        </div>
+
+        <div class="cascade-demo-item" id="cascade-p-2">
+          Párrafo 2: &lt;p class="destacado"&gt;Párrafo Destacado Secundario&lt;/p&gt;
+        </div>
+
+        <div class="cascade-demo-item" id="cascade-p-3">
+          Párrafo 3: &lt;p&gt;Párrafo Base Estándar&lt;/p&gt;
+        </div>
+      </div>
+
+      <!-- RENDER 3: MÉTODOS -->
+      <div id="canvas-methods" class="canvas-card" style="display:none;">
+        <div class="canvas-header"><span>Resumen de Aplicación CSS</span></div>
+        <p style="font-size:0.85rem; line-height:1.6;">
+          Los estilos externos mediante la etiqueta <code>&lt;link rel="stylesheet" href="styles.css"&gt;</code> son la mejor práctica para mantener la separación de responsabilidades entre contenido (HTML) y diseño (CSS)[cite: 1].
+        </p>
+      </div>
+
+      <!-- RENDER 4: SELECTORES -->
+      <div id="canvas-selectors" class="canvas-card" style="display:none;">
+        <div class="canvas-header"><span>Prueba de Estado de Enlace Interactivo</span></div>
+        <div style="padding: 15px; border: 1px dashed #666; text-align: center;">
+          <a href="#test" id="demo-interactive-link" class="demo-link-btn" onclick="event.preventDefault();">
+            Haz clic o pasa el mouse por este Botón de Enlace
+          </a>
+        </div>
+      </div>
+
+      <!-- RENDER 5: BOX MODEL CON RECTÁNGULOS Y PÁRRAFO -->
+      <div id="canvas-box-model" class="canvas-card" style="display:none;">
+        <div class="canvas-header">
+          <span>Vista Renderizada: Rectángulos del Box Model y Párrafo</span>
+          <span id="box-sizing-tag">box-sizing: border-box</span>
+        </div>
+        
+        <div class="bm-visualizer">
+          <div class="bm-wrapper">
+            <span class="layer-label">1. MARGEN (margin)</span>
+            <div class="bm-border-box">
+              <span class="layer-label">2. BORDE (border)</span>
+              <div class="bm-padding-box">
+                <span class="layer-label">3. RELLENO (padding)</span>
+                <div class="bm-content-box">
+                  <span class="layer-label">4. CONTENIDO (width/height)</span>
+                  <p class="bm-paragraph">
+                    <strong>Párrafo Vivo:</strong> Este contenedor demuestra el reacomodo del texto a medida que modificas los valores de margen exterior, grosor de borde, padding interior y ancho.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RENDER 6: DISPLAY -->
+      <div id="canvas-display" class="canvas-card" style="display:none;">
+        <div class="canvas-header"><span>Comportamiento de Flujo Display</span></div>
+        <div id="display-target-container">
+          <div class="display-demo-box">Caja A</div>
+          <div class="display-demo-box">Caja B</div>
+        </div>
+      </div>
+
+      <!-- RENDER 7: OVERFLOW -->
+      <div id="canvas-overflow" class="canvas-card" style="display:none;">
+        <div class="canvas-header"><span>Manejo de Overflow con Barras de Scroll (12px)</span></div>
+        <div id="overflow-target-box" class="overflow-box overflow-box-thick">
+          <p style="font-size:0.75rem; color:#aaa; margin-bottom:8px;">Contenido amplio desplegado...</p>
+          <div style="width:240px; height:200px; background:#fff; color:#000; text-align:center; padding:15px; font-weight:bold;">
+            🌻 Girasol Pixel Art<br>(Caja interna de 240x200px)
+          </div>
+        </div>
+      </div>
+
+      <!-- RENDER 8: COLORES -->
+      <div id="canvas-colors" class="canvas-card" style="display:none;">
+        <div class="canvas-header"><span>Generador de Color HSL</span></div>
+        <div id="color-swatch-target" class="color-swatch">COLOR CALCULADO</div>
+      </div>
+
+      <!-- RENDER 9: TIPOGRAFÍA -->
+      <div id="canvas-typography" class="canvas-card" style="display:none;">
+        <div class="canvas-header"><span>Muestra Tipográfica</span></div>
+        <div class="typography-demo-text" id="demo-typography-target">
+          "El 95% del contenido en la web es texto[cite: 1]. La tipografía adecuada garantiza legibilidad sin cansar la vista."
+          <br><br>
+          <span style="font-size: 0.8em; opacity: 0.8;">
+            ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>
+            abcdefghijklmnopqrstuvwxyz<br>
+            0123456789
+          </span>
+        </div>
+      </div>
+
+      <!-- RENDER 10: FLEXBOX -->
+      <div id="canvas-flexbox" class="canvas-card" style="display:none;">
+        <div class="canvas-header"><span>Flexbox: Propósito y Beneficios (PDF)</span></div>
+        <p style="font-size: 0.78rem; line-height: 1.5; color: #DDD;">
+          <strong>Propósito[cite: 1]:</strong> Distribuye elementos en una sola dimensión (fila o columna)[cite: 1].<br>
+          <strong>Funciones Clave[cite: 1]:</strong><br>
+          • Distribuye espacio incluso si el tamaño del contenedor es desconocido[cite: 1].<br>
+          • Permite alinear y centrar elementos vertical/horizontalmente con facilidad[cite: 1].<br>
+          • Cambia el orden visual de los ítems sin modificar el HTML[cite: 1].
+        </p>
+        <div id="flex-target-container" class="flex-container-demo">
+          <div class="flex-item-demo">Item 1</div>
+          <div class="flex-item-demo">Item 2</div>
+          <div class="flex-item-demo">Item 3</div>
+        </div>
+      </div>
+
+      <!-- RENDER 11: CSS GRID -->
+      <div id="canvas-grid" class="canvas-card" style="display:none;">
+        <div class="canvas-header"><span>CSS Grid: Propósito y Casos de Uso (PDF)</span></div>
+        <p style="font-size: 0.78rem; line-height: 1.5; color: #DDD;">
+          <strong>Propósito[cite: 1]:</strong> Organiza elementos en dos dimensiones (filas y columnas simultáneamente)[cite: 1].<br>
+          <strong>Principales Aplicaciones[cite: 1]:</strong><br>
+          • Layout principal de la página[cite: 1].<br>
+          • Galerías de imágenes[cite: 1].<br>
+          • Dashboards y paneles de control[cite: 1].<br>
+          • Formularios complejos[cite: 1].
+        </p>
+        <div class="grid-container-demo" id="demo-grid-target">
+          <div class="grid-item-demo featured" id="grid-featured-item">Item #1 (Destacado)</div>
+          <div class="grid-item-demo">Item #2</div>
+          <div class="grid-item-demo">Item #3</div>
+          <div class="grid-item-demo">Item #4</div>
+          <div class="grid-item-demo">Item #5</div>
+          <div class="grid-item-demo">Item #6</div>
+        </div>
+      </div>
+
+      <!-- RENDER 12: DINO RUNNER ANIMADO GIGANTE (NO INTERNET MODE) -->
+      <div id="canvas-best-practices" class="canvas-card" style="display:none;">
+        <div class="canvas-header">
+          <span>SIN CONEXIÓN // CHROME DINO RUNNER ANIMADO (TAMAÑO MAXIMO)</span>
+        </div>
+        
+        <div class="dino-container">
+          <div class="dino-instructions">NO INTERNET</div>
+          <div class="dino-score" id="dino-score-counter">00582</div>
+          <div class="dino-player jumping"></div>
+          <div class="cactus-obstacle"></div>
+          <div class="dino-ground"></div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- LÓGICA INTERACTIVA EN JAVASCRIPT -->
+  <script>
+    function switchTopic(topicId) {
+      document.querySelectorAll('.topic-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.editor-section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.canvas-card').forEach(card => card.style.display = 'none');
+
+      event.target.classList.add('active');
+      document.getElementById(topicId + '-editor').classList.add('active');
+      document.getElementById('canvas-' + topicId).style.display = 'block';
+    }
+
+    function updateIntro() {
+      const mode = document.getElementById('intro-mode').value;
+      const box = document.getElementById('intro-render-box');
+      if (mode === 'no-css') {
+        box.className = 'no-css-view';
+      } else {
+        box.className = 'with-css-view';
+      }
+      document.getElementById('code-intro').textContent = `<div class="${box.className}">\n  <h2>Cascading Style Sheets (CSS)</h2>\n</div>`;
+    }
+
+    function updateCascade() {
+      const showElem = document.getElementById('chk-element').checked;
+      const showClass = document.getElementById('chk-class').checked;
+      const showId = document.getElementById('chk-id').checked;
+      const showInline = document.getElementById('chk-inline').checked;
+
+      let codeStr = '';
+
+      if (showElem) {
+        codeStr += `/* Regla 1: Elemento */\np {\n  color: #888888;\n}\n\n`;
+      }
+
+      if (showClass) {
+        codeStr += `/* Regla 2: Clase */\n.destacado {\n  color: #FFFFFF;\n}\n\n`;
+      }
+
+      if (showId) {
+        codeStr += `/* Regla 3: ID */\n#principal {\n  color: #FFCC00;\n}\n\n`;
+      }
+
+      if (showInline) {
+        codeStr += `/* Estilo en línea */\n<p style="color: #FF3333;">...`;
+      }
+
+      document.getElementById('code-cascade').textContent = codeStr || '/* Desactiva las casillas para ver cambios */';
+
+      const p1 = document.getElementById('cascade-p-1');
+      const p2 = document.getElementById('cascade-p-2');
+      const p3 = document.getElementById('cascade-p-3');
+
+      [p1, p2, p3].forEach(p => p.removeAttribute('style'));
+
+      if (showInline) {
+        p1.style.color = '#FF3333';
+      } else if (showId) {
+        p1.style.color = '#FFCC00';
+        p1.style.fontWeight = 'bold';
+      } else if (showClass) {
+        p1.style.color = '#FFFFFF';
+      } else if (showElem) {
+        p1.style.color = '#888888';
+      } else {
+        p1.style.color = '#555555';
+      }
+
+      if (showClass) {
+        p2.style.color = '#FFFFFF';
+      } else if (showElem) {
+        p2.style.color = '#888888';
+      } else {
+        p2.style.color = '#555555';
+      }
+
+      if (showElem) {
+        p3.style.color = '#888888';
+      } else {
+        p3.style.color = '#555555';
+      }
+    }
+
+    function updateSelectors() {
+      const state = document.getElementById('input-link-state').value;
+      const linkBtn = document.getElementById('demo-interactive-link');
+
+      linkBtn.removeAttribute('style');
+
+      if (state === 'link') {
+        linkBtn.style.color = '#FFFFFF';
+        linkBtn.style.backgroundColor = '#222222';
+      } else if (state === 'visited') {
+        linkBtn.style.color = '#888888';
+        linkBtn.style.backgroundColor = '#111111';
+      } else if (state === 'hover') {
+        linkBtn.style.color = '#000000';
+        linkBtn.style.backgroundColor = '#FFFFFF';
+      } else if (state === 'active') {
+        linkBtn.style.color = '#FF3333';
+        linkBtn.style.backgroundColor = '#000000';
+      }
+    }
+
+    function updateBoxModel() {
+      const margin = document.getElementById('input-margin').value + 'px';
+      const padding = document.getElementById('input-padding').value + 'px';
+      const border = document.getElementById('input-border').value + 'px';
+      const width = document.getElementById('input-width').value + '%';
+      const boxSizing = document.getElementById('input-box-sizing').value;
+
+      document.getElementById('val-margin').textContent = margin;
+      document.getElementById('val-padding').textContent = padding;
+      document.getElementById('val-border').textContent = border;
+      document.getElementById('val-width').textContent = width;
+      document.getElementById('val-box-sizing').textContent = boxSizing;
+      document.getElementById('box-sizing-tag').textContent = 'box-sizing: ' + boxSizing;
+
+      document.querySelector('.bm-wrapper').style.padding = margin;
+      document.querySelector('.bm-border-box').style.borderWidth = border;
+      document.querySelector('.bm-padding-box').style.padding = padding;
+      
+      const contentBox = document.querySelector('.bm-content-box');
+      contentBox.style.width = width;
+      contentBox.style.boxSizing = boxSizing;
+
+      document.getElementById('code-box-model').textContent = `.caja {\n  box-sizing: ${boxSizing};\n  width: ${width};\n  margin: ${margin};\n  border: ${border} solid #FFF;\n  padding: ${padding};\n}`;
+    }
+
+    function updateDisplay() {
+      const mode = document.getElementById('display-mode').value;
+      const boxes = document.querySelectorAll('.display-demo-box');
+      boxes.forEach(b => b.style.display = mode);
+      document.getElementById('code-display').textContent = `.caja {\n  display: ${mode};\n}`;
+    }
+
+    function updateOverflow() {
+      const mode = document.getElementById('overflow-mode').value;
+      document.getElementById('overflow-target-box').style.overflow = mode;
+      document.getElementById('code-overflow').textContent = `.contenedor {\n  overflow: ${mode};\n}`;
+    }
+
+    function updateColors() {
+      const h = document.getElementById('input-hue').value;
+      const s = document.getElementById('input-sat').value + '%';
+      document.getElementById('val-hue').textContent = h;
+      document.getElementById('val-sat').textContent = s;
+
+      const colorStr = `hsl(${h}, ${s}, 60%)`;
+      const swatch = document.getElementById('color-swatch-target');
+      swatch.style.backgroundColor = colorStr;
+      swatch.textContent = colorStr;
+
+      document.getElementById('code-colors').textContent = `.tarjeta {\n  background-color: ${colorStr};\n}`;
+    }
+
+    function updateTypography() {
+      const font = document.getElementById('input-font-family').value;
+      const size = document.getElementById('input-type-size').value + 'rem';
+
+      document.getElementById('val-type-size').textContent = size;
+
+      const target = document.getElementById('demo-typography-target');
+      target.style.fontFamily = font;
+      target.style.fontSize = size;
+
+      document.getElementById('code-typography').textContent = `p {\n  font-family: ${font};\n  font-size: ${size};\n}`;
+    }
+
+    function updateFlex() {
+      const dir = document.getElementById('flex-dir').value;
+      const justify = document.getElementById('flex-justify').value;
+
+      const container = document.getElementById('flex-target-container');
+      container.style.flexDirection = dir;
+      container.style.justifyContent = justify;
+
+      document.getElementById('code-flexbox').textContent = `.flex-container {\n  display: flex;\n  flex-direction: ${dir};\n  justify-content: ${justify};\n}`;
+    }
+
+    function updateGrid() {
+      const cols = document.getElementById('input-grid-cols').value;
+      const autoRows = document.getElementById('input-grid-autorows').value + 'px';
+      const gap = document.getElementById('input-grid-gap').value + 'px';
+      const span = document.getElementById('input-grid-span').value;
+
+      document.getElementById('val-grid-autorows').textContent = autoRows;
+      document.getElementById('val-grid-gap').textContent = gap;
+
+      const gridTarget = document.getElementById('demo-grid-target');
+      gridTarget.style.gridTemplateColumns = cols;
+      gridTarget.style.gridAutoRows = autoRows;
+      gridTarget.style.gap = gap;
+
+      const featuredItem = document.getElementById('grid-featured-item');
+      if (span === 'col2') {
+        featuredItem.style.gridColumn = 'span 2';
+        featuredItem.style.gridRow = 'span 1';
+      } else if (span === 'row2') {
+        featuredItem.style.gridColumn = 'span 1';
+        featuredItem.style.gridRow = 'span 2';
+      } else {
+        featuredItem.style.gridColumn = 'span 1';
+        featuredItem.style.gridRow = 'span 1';
+      }
+
+      document.getElementById('code-grid').textContent = `.grid-container {\n  display: grid;\n  grid-template-columns: ${cols};\n  grid-auto-rows: ${autoRows};\n  gap: ${gap};\n}\n\n.item-destacado {\n  grid-column: ${featuredItem.style.gridColumn};\n  grid-row: ${featuredItem.style.gridRow};\n}`;
+    }
+
+    // Incrementar contador de score del Dino
+    let score = 582;
+    setInterval(() => {
+      score += 1;
+      const el = document.getElementById('dino-score-counter');
+      if (el) {
+        el.textContent = score.toString().padStart(5, '0');
+      }
+    }, 150);
+
+    window.onload = function() {
+      updateIntro();
+      updateCascade();
+      updateSelectors();
+      updateBoxModel();
+      updateDisplay();
+      updateOverflow();
+      updateColors();
+      updateTypography();
+      updateFlex();
+      updateGrid();
+    };
+  </script>
 </body>
 </html>
